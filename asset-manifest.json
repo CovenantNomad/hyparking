@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/hyparking/static/css/main.e59a6881.css",
-    "main.js": "/hyparking/static/js/main.850970b2.js",
+    "main.js": "/hyparking/static/js/main.ec3b0ee2.js",
     "index.html": "/hyparking/index.html",
     "main.e59a6881.css.map": "/hyparking/static/css/main.e59a6881.css.map",
-    "main.850970b2.js.map": "/hyparking/static/js/main.850970b2.js.map"
+    "main.ec3b0ee2.js.map": "/hyparking/static/js/main.ec3b0ee2.js.map"
   },
   "entrypoints": [
     "static/css/main.e59a6881.css",
-    "static/js/main.850970b2.js"
+    "static/js/main.ec3b0ee2.js"
   ]
 }
