@@ -1,9 +1,9 @@
 import React from 'react';
-import { CheckIcon } from '@heroicons/react/outline'
+import { CheckIcon, XIcon } from '@heroicons/react/outline'
 
 export default function SuccessModal({ closeModal, content }) {
 
-  const {result, plateNumber , errorMessage } = content
+  const {title, subtitle, result, plateNumber , errorMessage } = content
 
 
   return (
@@ -12,16 +12,20 @@ export default function SuccessModal({ closeModal, content }) {
         {/* banner */}
         <div className='flex items-center justify-center py-6'>
           <div className={`${result? 'bg-teal-100': 'bg-red-100'} h-16 w-16 rounded-full flex items-center justify-center`}>
-            <CheckIcon className={`h-8 w-8 ${result? 'text-teal-600': 'text-red-600'}`} />
+            {result ? (
+              <CheckIcon className="h-8 w-8 text-teal-600" />
+            ) : (
+              <XIcon className="h-8 w-8 text-red-600" />
+            )}
           </div>
         </div>
         {/* content */}
         <div className='flex flex-col items-center '>
-          <h3 className={`text-2xl font-bold`}>{result ? "등록완료": "등록실패"}</h3>
+          <h3 className={`text-2xl font-bold`}>{title}</h3>
           <p className='mt-3 text-center text-sm text-gray-500'>
             <span><span className='text-gray-900 text-base font-semibold'>{plateNumber} </span>차량을</span>
             <br />
-            {result? "성공적으로 등록하였습니다" : "등록하는데 실패했습니다"}
+            {subtitle}
           </p>
           {errorMessage?.length !== 0 && <p className='mt-1 text-center text-sm text-red-600'>{errorMessage}</p>}
         </div>

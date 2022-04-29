@@ -9,6 +9,7 @@ import RegistrationPage from "./pages/RegistrationPage";
 import SearchPage from "./pages/SearchPage";
 import VehicleListPage from "./pages/VehicleListPage";
 import SettingPage from "./pages/SettingPage";
+import EditPage from "./pages/EditPage";
 
 
 const queryClient = new QueryClient()
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={authState.isLoggedIn ? <SearchPage /> : <Onboarding />}/>
         <Route path="/vehicle-list" element={authState.isLoggedIn ? <VehicleListPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
         <Route path="/registration" element={authState.isLoggedIn ? <RegistrationPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
+        <Route path="/edit" element={authState.isLoggedIn ? <EditPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
         <Route path="/setting" element={authState.isLoggedIn ? <SettingPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
         <Route path="*" element={<Navigate to="/" replace />}/>
       </Routes>

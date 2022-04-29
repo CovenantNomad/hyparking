@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const VehicleItem = ({ item }) => {
+  const navigate = useNavigate()
 
   return (
     <div className="border rounded-lg shadow">
@@ -14,8 +16,20 @@ const VehicleItem = ({ item }) => {
         </div>
         <div className='flex items-center'>
           <div className="flex flex-col rounded-full bg-black w-14 h-14 items-center justify-center sm:w-12 sm:h-12">
-            <span className="block text-white text-xs font-bold">{item.plateFront}</span>
-            <span className="block text-white text-xs font-bold">{item.plateNumber}</span>
+            <button 
+              onClick={() => navigate("/edit", {state : { 
+                owner: item.owner,
+                division: item.division,
+                position: item.position,
+                plateFront: item.plateFront,
+                plateNumber: item.plateNumber,
+                phoneNumber: item.phoneNumber,
+              }})}
+              className='flex flex-col rounded-full bg-black w-14 h-14 items-center justify-center sm:w-12 sm:h-12'
+            >
+              <span className="block text-white text-xs font-bold">{item.plateFront}</span>
+              <span className="block text-white text-xs font-bold">{item.plateNumber}</span>
+            </button>
           </div>
         </div>
       </div>

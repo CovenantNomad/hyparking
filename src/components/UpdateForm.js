@@ -1,15 +1,15 @@
 import React from 'react';
 
-const RegistrationForm = ({ register, errors}) => {
+const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
   
   return (
     <div className='bg-zinc-200 pb-4'>
       <div>
         <div id='left-container'>
           <div className='px-4 py-4'>
-            <h3 className='text-lg font-medium text-gray-900 leading-6'>차량등록</h3>
+            <h3 className='text-lg font-medium text-gray-900 leading-6'>차량정보 업데이트</h3>
             <p className='text-sm text-gray-600 mt-1 whitespace-pre-wrap'>
-              {`신규차량등록을 위해 아래사항들을 기입해 주세요.`}
+              {`변경된 사항들을 확인하시고 업데이트 해주세요.`}
             </p>
           </div>
         </div>
@@ -124,12 +124,19 @@ const RegistrationForm = ({ register, errors}) => {
                 </div>
               </div>
 
-              <div className="pt-6 bg-gray-50 text-right">
+              <div className="pt-6 bg-gray-50 text-right space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => onDelete(fullPlateNumber)}
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                  >
+                    삭제하기
+                  </button>
                   <button
                     type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                   >
-                    등록하기
+                    저장
                   </button>
                 </div>
             </div>
@@ -140,4 +147,4 @@ const RegistrationForm = ({ register, errors}) => {
   );
 }
 
-export default React.memo(RegistrationForm);
+export default React.memo(UpdateForm);
