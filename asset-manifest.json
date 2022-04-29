@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.e59a6881.css",
-    "main.js": "/static/js/main.850970b2.js",
-    "index.html": "/index.html",
-    "main.e59a6881.css.map": "/static/css/main.e59a6881.css.map",
-    "main.850970b2.js.map": "/static/js/main.850970b2.js.map"
+    "main.css": "/hyparking/static/css/main.e59a6881.css",
+    "main.js": "/hyparking/static/js/main.850970b2.js",
+    "index.html": "/hyparking/index.html",
+    "main.e59a6881.css.map": "/hyparking/static/css/main.e59a6881.css.map",
+    "main.850970b2.js.map": "/hyparking/static/js/main.850970b2.js.map"
   },
   "entrypoints": [
     "static/css/main.e59a6881.css",
