@@ -16,8 +16,8 @@ export const userAtom = atom({
 export const navigationAtom = atom({
   key: 'navigationAtom',
   default: [
-    { name: '홈', href: '/', current: true },
-    { name: '등록차량목록', href: '/vehicle-list', current: false },
-    { name: '신규차량등록', href: '/registration', current: false },
+    { name: '홈', href: 'https://covenantnomad.github.io/hyparking/', current: true },
+    { name: '등록차량목록', href: 'https://covenantnomad.github.io/hyparking/vehicle-list', current: false },
+    { name: '신규차량등록', href: 'https://covenantnomad.github.io/hyparking/registration', current: false },
   ],
 })
