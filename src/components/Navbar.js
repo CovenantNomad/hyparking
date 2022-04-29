@@ -1,19 +1,45 @@
+import React, { Fragment, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { auth } from '../configs/firebaseConfig';
+import { signOut } from 'firebase/auth';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { authAtom, navigationAtom } from '../stores/state';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
-import React, { Fragment, useState } from 'react';
 
 const Navbar = () => {
-  const [ navigation, setNavigation ] = useState(
-    [
-      { name: '홈', href: '#', current: true },
-      { name: '신규차량등록', href: '#', current: false },
-      { name: '등록차량목록', href: '#', current: false },
-    ]
-  )
+  const setAuthState = useSetRecoilState(authAtom)
+  const [ navigation, setNavigation ] = useRecoilState(navigationAtom)
+
+  const location = useLocation()
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
   }
+
+  const logout = () => {
+    signOut(auth).then(() => {
+      localStorage.removeItem("auth")
+      setAuthState({
+        isLoggedIn: false,
+        token: null
+      })
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const onClickHandler = (e) => {
+    setNavigation(
+      navigation.map(item => item.name === e.target.text ? {...item, current: true} : {...item, current: false})
+    )
+  }
+
+  useEffect(() => {
+    setNavigation(
+      navigation.map(item => item.href === location.pathname ? {...item, current: true} : {...item, current: false})
+    )
+  }, [])
 
   return (
     <Disclosure as="nav">
@@ -32,31 +58,32 @@ const Navbar = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="hidden sm:block sm:ml-6">
+              <div className="hidden sm:block">
                 <div className="flex space-x-4">
                   {navigation.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className={classNames(
                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'px-3 py-2 rounded-md text-sm font-medium'
                       )}
                       aria-current={item.current ? 'page' : undefined}
+                      onClick={onClickHandler}
                     >
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <Menu as="div" className="ml-3 relative">
                   <div>
-                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-sky-400 focus:ring-white">
                       <span className="sr-only">Open user menu</span>
                       <img
                         className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={require('../assets/images/logo.jpg')}
                         alt=""
                       />
                     </Menu.Button>
@@ -71,24 +98,24 @@ const Navbar = () => {
                     leaveTo="transform opacity-0 scale-95"
                   >
                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
+                          <Link
+                            to="/setting"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Settings
-                          </a>
+                            세팅
+                          </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <button
+                            onClick={logout}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block w-full text-left px-4 py-2 text-sm text-gray-700')}
                           >
-                            Sign out
-                          </a>
+                            로그아웃
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
@@ -98,9 +125,9 @@ const Navbar = () => {
             </div>
           </div>
           <Disclosure.Panel className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-1 pb-3 space-y-1">
               {navigation.map((item) => (
-                <Disclosure.Button
+                <Disclosure.Button 
                   key={item.name}
                   as="a"
                   href={item.href}
@@ -109,6 +136,7 @@ const Navbar = () => {
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
+                  onClick={onClickHandler}
                 >
                   {item.name}
                 </Disclosure.Button>

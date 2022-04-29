@@ -1,29 +1,31 @@
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { authAtom } from "./stores/state";
+// pages
 import Onboarding from "./pages/Onboarding";
-import RegisteredPage from "./pages/RegisteredPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import SearchPage from "./pages/SearchPage";
-import ProtectedRoutes from "./routes/ProtectedRoutes";
-import { authAtom } from "./stores/state";
+import VehicleListPage from "./pages/VehicleListPage";
+import SettingPage from "./pages/SettingPage";
+
 
 const queryClient = new QueryClient()
 
 function App() {
-  const auth = useRecoilValue(authAtom)
+  const [authState, setAuthState] = useRecoilState(authAtom)
+  const location = useLocation()  
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          {auth.isLoggedIn ? (
-            <Route index element={<SearchPage />}/>
-          ) : (
-            <Route index element={<Onboarding />}/>
-          )}
-        </Routes>
-    </BrowserRouter>
+      <Routes>
+        <Route path="/" element={authState.isLoggedIn ? <SearchPage /> : <Onboarding />}/>
+        <Route path="/vehicle-list" element={authState.isLoggedIn ? <VehicleListPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
+        <Route path="/registration" element={authState.isLoggedIn ? <RegistrationPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
+        <Route path="/setting" element={authState.isLoggedIn ? <SettingPage /> : <Navigate to="/" state={{ from: location }} replace />}/>
+        <Route path="*" element={<Navigate to="/" replace />}/>
+      </Routes>
     </QueryClientProvider>
   );
 }

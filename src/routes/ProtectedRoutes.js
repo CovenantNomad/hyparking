@@ -1,16 +1,17 @@
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import useAuth from '../hooks/useAuth';
+import { useRecoilValue } from 'recoil';
+import { authAtom } from '../stores/state';
 
-const ProtectedRoutes = () => {
-  const auth = useAuth()
+const ProtectedRoutes = ({ children }) => {
+  const authState = useRecoilValue(authAtom)
   const location = useLocation()
 
-  if (!auth.isLoggedIn) {
+  if (!authState.loggedIn) {
     return <Navigate to="/" state={{ from: location }} replace />
   }
 
-  return null;
+  return children;
 }
 
 export default ProtectedRoutes;

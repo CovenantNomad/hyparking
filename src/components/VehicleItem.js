@@ -1,19 +1,23 @@
 import React from 'react';
 
-const ListItem = ({ item }) => {
+const VehicleItem = ({ item }) => {
 
   return (
-    <div className="border border-gray-200 shadow rounded-md max-w-xs w-full mx-auto">
-      <div className="flex justify-center items-center p-6">
-        <div className="flex flex-col rounded-full bg-black w-28 h-28 items-center justify-center">
-          <span className="block text-white text-xl font-bold">{item.plateFront}</span>
-          <span className="block text-white text-xl font-bold">{item.plateNumber}</span>
+    <div className="border rounded-lg shadow">
+      <div className="flex p-4">
+        <div className='flex-1'>
+          <div className="flex items-center">
+            <h4 className='text-lg font-semibold mr-2'>{item.owner}</h4>
+            <p className="text-blue-600 bg-sky-300 text-xs px-2 py-1 rounded-2xl">{item.division}</p>
+          </div>
+          <p className='text-md text-gray-400'>{item.position}</p>
         </div>
-      </div>
-      <div className="flex flex-col items-center">
-        <h3 className="text-lg font-semibold">{item.owner}</h3>
-        <h4 className="text-md text-gray-400">{item.position}</h4>
-        <p className="text-blue-600 bg-sky-300 text-medium px-2 py-1 rounded-2xl mt-3 mb-6">{item.division}</p>
+        <div className='flex items-center'>
+          <div className="flex flex-col rounded-full bg-black w-14 h-14 items-center justify-center sm:w-12 sm:h-12">
+            <span className="block text-white text-xs font-bold">{item.plateFront}</span>
+            <span className="block text-white text-xs font-bold">{item.plateNumber}</span>
+          </div>
+        </div>
       </div>
       <div className="grid gird-cols-2 grid-flow-col auto-cols-fr border-t border-gray-300">
         <div className="col-span-1 text-gray-600 flex items-center justify-center py-4 border-r border-gray-300">
@@ -30,4 +34,4 @@ const ListItem = ({ item }) => {
   );
 }
 
-export default React.memo(ListItem);
+export default React.memo(VehicleItem);

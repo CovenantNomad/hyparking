@@ -1,10 +1,10 @@
 import React from 'react';
 import { XIcon } from '@heroicons/react/outline';
 
-const Searchbar = ({ register, reset, isDirty }) => {
+const Searchbar = ({ register }) => {
 
   return (
-    <div className="flex justify-between px-2">
+    <div className="flex justify-between">
       <div className="flex flex-1 items-center mr-2 border border-gray-300 rounded-3xl">
         <label className="p-2" htmlFor='plateNumber'>
           <svg width={20} height={20} viewBox={'0 0 20 20'}>
@@ -15,19 +15,13 @@ const Searchbar = ({ register, reset, isDirty }) => {
           name="plateNumber"
           type={"text"}
           placeholder="차량번호를 검색해주세요" 
-          className="appearance-none rounded-none outline-none w-full py-3 px-1 text-lg rounded-tr-3xl rounded-br-3xl"
+          className="appearance-none rounded-none outline-none w-full py-3 px-1 text-lg rounded-tr-3xl rounded-br-3xl border-none focus:outline-none active:outline-none focus:appearance-none active:appearance-none"
           autoFocus
-          {...register("plateNumber", { required: true })}
+          {...register("plateNumber", { required: "검색할 차량번호를 입력해주세요" })}
         />
-        {isDirty && (
-          <button className="p-2 rounded-tr-3xl rounded-br-3xl" type='button' onClick={() => reset({ plateNumber: "" })}>
-            <span className="sr-only">Reset Search</span>
-            <XIcon className="h-6 w-6" aria-hidden="true" />
-          </button>
-        )}
       </div>
       <div className="flex justify-center items-center">
-        <button type="submit" className="rounded-xl border px-4 py-3 bg-blue-500 text-white font-semibold">
+        <button type="submit" className="rounded-xl border px-4 py-3 bg-blue-500 hover:bg-blue-600 focus:ring-blue-600 text-white font-semibold">
           제출
         </button>
       </div>

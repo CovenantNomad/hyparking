@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from 'firebase/auth'
+import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
 // components
 import AuthInput from '../components/AuthInput';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { authAtom } from '../stores/state';
 import { useNavigate } from 'react-router-dom';
 import { auth } from '../configs/firebaseConfig';
@@ -11,12 +11,12 @@ import Logo from '../components/Logo';
 
 const Onboarding = () => {
   const navigate = useNavigate()
-  const authState = useRecoilValue(authAtom)
-  const setAuthState = useSetRecoilState(authAtom)
+  const [ authState, setAuthState ] = useRecoilState(authAtom)
   const [ savedEmail, setSavedEamil] = useState(true)
   const { handleSubmit, formState: { errors }, register } = useForm({
     defaultValues: {
       email: localStorage.getItem("saved-email") || "",
+      rememberMe: true
     }
   })
 
@@ -25,23 +25,30 @@ const Onboarding = () => {
 
     setPersistence(auth, rememberMe ? browserLocalPersistence : browserSessionPersistence)
     .then(() => {
-      return signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const token = await userCredential.user.getIdToken()
-        if (rememberMe) {
-          localStorage.setItem("saved-email", userCredential.user.email)
-        }
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const { user } = userCredential
         setAuthState({
           isLoggedIn: true,
-          token
+          token: user.accessToken
         })
+        if (rememberMe) {
+          localStorage.setItem("saved-email", email)
+          localStorage.setItem("auth", user.accessToken)
+        } else {
+          localStorage.removeItem("saved-email")
+          localStorage.removeItem("auth")
+        }
       })
+    })
+    .catch((error) => {
+      console.log(error)
     })
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start lg:justify-center">
-      <div className="container py-10 px-5 lg:border rounded-lg max-w-xl">
+    <div className="min-h-screen flex flex-col items-center justify-start md:justify-center">
+      <div className="container py-16 px-5 md:flex md:flex-col md:justify-center md:border md:rounded-lg md:max-w-xl md:min-h-[50vh]">
         <Logo />
         <form className="mt-8 space-y-6" action="#" onSubmit={handleSubmit(onSubmit)}>
           <div className="rounded-md shadow-sm -space-y-px">
@@ -61,7 +68,7 @@ const Onboarding = () => {
               required
             />
           </div>
-          <div className="flex items-start">
+          <div className="flex items-center">
             <input
               id="rememberMe"
               name="rememberMe"
@@ -76,7 +83,7 @@ const Onboarding = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
             >
               로그인
             </button>
