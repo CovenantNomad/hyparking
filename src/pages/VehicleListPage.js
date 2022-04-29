@@ -10,6 +10,7 @@ import VehicleItem from '../components/VehicleItem';
 import { useGetNumber } from '../hooks/useGetNumber';
 import SkeletonTagItem from '../components/SkeletonTagItem';
 import SkeletonVehicle from '../components/SkeletonVehicle';
+import Pagination from '../components/Pagination';
 
 const VehicleListPage = () => {
   const [ serchOption, setSearchOption ] = useState("전체")
@@ -24,7 +25,7 @@ const VehicleListPage = () => {
     <Container>
       <Navbar />
       <Logo />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4">
         { numberIsLoading ? (
           [...Array(8)].map((_, index) => <SkeletonTagItem key={index} />)
         ) : (
@@ -32,7 +33,7 @@ const VehicleListPage = () => {
         )}
       </div>
       <div className="h-1 border-t border-gray-300 my-4"></div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
         {isLoading ? (
           [...Array(2)].map((_, index) => <SkeletonVehicle key={index} />)
         ) : (
@@ -45,6 +46,7 @@ const VehicleListPage = () => {
           )
         )}
       </div>
+      <Pagination />
     </Container>
   );
 }

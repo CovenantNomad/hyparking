@@ -13,6 +13,8 @@ const RegistrationPage = () => {
   const [ open, setOpen ] = useState(false)
   const [ modalContent, setModalContent ] = useState({
     result: true,
+    title: "",
+    subtitle: "",
     plateNumber: "",
     errorMessage: ""
   })
@@ -33,6 +35,8 @@ const RegistrationPage = () => {
       if (!response.empty) {
         setModalContent({
           result: false,
+          title: "등록실패",
+          subtitle: "등록하는데 실패하였습니다",
           plateNumber: submitData.fullPlateNumber,
           errorMessage: "실패이유 : 이미 등록된 차량이 있습니다"
         })
@@ -58,9 +62,11 @@ const RegistrationPage = () => {
           const newDivisionNumber = numberDoc.data().totalNumber + 1;
           transaction.update(numberRef, { totalNumber: newDivisionNumber });
         });
-        console.log("Transaction successfully committed!");
+
         setModalContent({
           result: true,
+          title: "등록성공",
+          subtitle: "성공적으로 등록하였습니다",
           plateNumber: submitData.fullPlateNumber 
         })
         reset({
@@ -76,6 +82,8 @@ const RegistrationPage = () => {
       console.log("Transaction failed: ", e);
       setModalContent({
         result: false,
+        title: "등록실패",
+        subtitle: "등록하는데 실패하였습니다",
         plateNumber: submitData.fullPlateNumber,
         errorMessage: "실패이유 : 서버에 등록하지 못했습니다."
       })

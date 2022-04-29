@@ -28,7 +28,7 @@ const SearchPage = () => {
         {errors.plateNumber && <p className='text-red-600 mt-1 pl-3'>{errors.plateNumber.message}</p>}
       </form>
 
-      <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-3">
+      <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-3 md:grid-cols-3">
       {isLoading ? (
         [...Array(3)].map((_, index) => <Skeleton key={index} />)
       ) : (
