@@ -80,7 +80,7 @@ const RegistrationForm = ({ register, errors}) => {
                 </div>
 
                 <div className="col-span-2">
-                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">차량번호 앞자리</label>
+                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">번호판 앞자리</label>
                   <input
                     type="text"
                     name="plateFront"
@@ -94,7 +94,7 @@ const RegistrationForm = ({ register, errors}) => {
                   {errors.plateFront && <p className='mt-1 text-red-600'>{errors.plateFront.message}</p>}
                 </div>
                 <div className="col-span-4">
-                  <label htmlFor="plateNumber" className="block text-sm font-medium text-gray-700">차량번호 뒷자리</label>
+                  <label htmlFor="plateNumber" className="block text-sm font-medium text-gray-700">차량번호판 뒷자리</label>
                   <input
                     type="text"
                     name="plateNumber"
