@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 //components
 import Container from '../components/Container';
@@ -13,13 +13,28 @@ import SkeletonVehicle from '../components/SkeletonVehicle';
 import Pagination from '../components/Pagination';
 
 const VehicleListPage = () => {
-  const [ serchOption, setSearchOption ] = useState("전체")
-  const { isLoading, data } = useSearchVehicle(serchOption)
+  const limit = 12
+  const [ searchOption, setSearchOption ] = useState("전체")
+  const [ page, setPage ] = useState(1)
+  const [ totalPage, setTotalPage ] = useState(1)
+  const [ totalResults, setTotalResults ] = useState(0)
+  const offset = (page - 1) * limit
+
+  const { isLoading, data } = useSearchVehicle(searchOption)
   const { data: numberOfVehicle, isLoading: numberIsLoading } = useGetNumber()
   
   const onClickHandler = (condition) => {
     setSearchOption(condition)
+    setPage(1)
   }
+
+  useEffect(() => {
+    numberOfVehicle?.map(
+      item => item.name === searchOption && (
+        setTotalPage(Math.ceil(item.totalNumber / limit)),
+        setTotalResults(item.totalNumber)
+      ))
+  }, [numberIsLoading, searchOption])
 
   return (
     <Container>
@@ -38,7 +53,7 @@ const VehicleListPage = () => {
           [...Array(2)].map((_, index) => <SkeletonVehicle key={index} />)
         ) : (
           data?.length !== 0 ? (
-            data?.map(item => <VehicleItem key={item.owner} item={item} />)
+            data?.slice(offset, offset + limit).map(item => <VehicleItem key={item.owner} item={item} />)
           ) : (
             <div className="text-center mt-8 sm:col-span-2 self-center justify-self-center">
               <h3 className="text-2xl font-bold">등록된 차량이 없습니다</h3>
@@ -46,7 +61,7 @@ const VehicleListPage = () => {
           )
         )}
       </div>
-      <Pagination />
+      {isLoading ? null : <Pagination page={page} setPage={setPage} totalPage={totalPage} totalResults={totalResults} limit={limit}/> }
     </Container>
   );
 }
