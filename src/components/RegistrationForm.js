@@ -68,13 +68,13 @@ const RegistrationForm = ({ register, errors}) => {
                     className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                   >
                     <option value={"none"}>소속을 선택해주세요</option>
-                    <option value={"사역자"}>사역자</option>
                     <option value={"남선교회"}>남선교회</option>
                     <option value={"여선교회"}>여선교회</option>
-                    <option value={"시니어"}>시니어</option>
                     <option value={"청장년"}>청장년</option>
                     <option value={"영커플"}>영커플</option>
                     <option value={"인터치"}>인터치</option>
+                    <option value={"시니어"}>시니어</option>
+                    <option value={"사역자"}>사역자</option>
                   </select>
                   {errors.division && <p className='mt-1 text-red-600'>{errors.division.message}</p>}
                 </div>

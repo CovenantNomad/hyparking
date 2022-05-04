@@ -1,4 +1,4 @@
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore"
+import { collection, endBefore, getDocs, orderBy, query, startAfter, where } from "firebase/firestore"
 import { db } from "../configs/firebaseConfig"
 
 export const searchPlate = async (plateNumber) => {
