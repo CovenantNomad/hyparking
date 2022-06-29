@@ -11,11 +11,11 @@ import ListItem from '../components/ListItem';
 
 const SearchPage = () => {
   const [ plateNumber, setPlateNumber ] = useState(null)
-  const {handleSubmit, register, reset, formState: { errors, isDirty }} = useForm()
+  const { handleSubmit, register, reset, formState: { errors, isDirty }} = useForm()
   const { data, isLoading, isError } = useSearch(plateNumber)
 
   
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     setPlateNumber(data.plateNumber)
   }
 

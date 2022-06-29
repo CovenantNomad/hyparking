@@ -4,7 +4,7 @@ import { db } from "../configs/firebaseConfig"
 export const searchPlate = async (plateNumber) => {
   let temp = []
   try {
-    const plateQuery = query(collection(db, "vehicles"), where("plateNumber", "==", plateNumber), orderBy("owner"));
+    const plateQuery = query(collection(db, "vehicles"), where("plateNumber", "==", plateNumber.toString()), orderBy("owner"));
     const querySnapshot = await getDocs(plateQuery);
     querySnapshot.forEach((doc) => {
       temp.push(doc.data())
