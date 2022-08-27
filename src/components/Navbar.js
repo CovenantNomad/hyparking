@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
 import { authAtom, navigationAtom } from '../stores/state';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../configs/firebaseConfig';
 
@@ -13,6 +13,7 @@ const Navbar = () => {
   const setAuthState = useSetRecoilState(authAtom)
   const location = useLocation()
   const profileRef = useRef(null)
+  const navigate = useNavigate()
 
 
   function classNames(...classes) {
@@ -112,8 +113,14 @@ const Navbar = () => {
         {profileOpen && (
           <div className='origin-top-right absolute right-0 top-12 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
             <button
+              onClick={() => navigate("/setting")}
+              className="active:bg-gray-100 hover:bg-gray-100 block w-full text-left px-4 py-2 text-sm text-gray-700"
+            >
+              설정
+            </button> 
+            <button
               onClick={logout}
-              className="active:bg-gray-100 block w-full text-left px-4 py-2 text-sm text-gray-700"
+              className="active:bg-gray-100 hover:bg-gray-100 block w-full text-left px-4 py-2 text-sm text-gray-700"
             >
               로그아웃
             </button>      

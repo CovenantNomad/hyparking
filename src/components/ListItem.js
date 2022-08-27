@@ -1,4 +1,5 @@
 import React from 'react';
+import { getColor } from '../utils/utils';
 
 const ListItem = ({ item }) => {
 
@@ -13,7 +14,7 @@ const ListItem = ({ item }) => {
       <div className="flex flex-col items-center">
         <h3 className="text-lg font-semibold">{item.owner}</h3>
         <h4 className="text-md text-gray-400">{item.position}</h4>
-        <p className="text-blue-600 bg-sky-300 text-medium px-2 py-1 rounded-2xl mt-3 mb-6">{item.division}</p>
+        <p className={`text-white ${getColor(item.division)} text-xs px-2 py-1 rounded-2xl mt-3 mb-6`}>{item.division}</p>
       </div>
       <div className="grid gird-cols-2 grid-flow-col auto-cols-fr border-t border-gray-300">
         <div className="col-span-1 text-gray-600 flex items-center justify-center py-4 border-r border-gray-300">

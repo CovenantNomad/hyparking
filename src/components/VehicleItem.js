@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getColor } from '../utils/utils';
 
 const VehicleItem = ({ item }) => {
   const navigate = useNavigate()
@@ -10,7 +11,7 @@ const VehicleItem = ({ item }) => {
         <div className='flex-1'>
           <div className="flex items-center">
             <h4 className='text-lg font-semibold mr-2'>{item.owner}</h4>
-            <p className="text-blue-600 bg-sky-300 text-xs px-2 py-1 rounded-2xl">{item.division}</p>
+            <p className={`text-white ${getColor(item.division)} text-xs px-2 py-1 rounded-2xl`}>{item.division}</p>
           </div>
           <p className='text-md text-gray-400'>{item.position}</p>
         </div>

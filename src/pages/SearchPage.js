@@ -16,7 +16,7 @@ const SearchPage = () => {
 
   
   const onSubmit = (data) => {
-    setPlateNumber(data.plateNumber)
+    setPlateNumber(String(data.plateNumber).padStart(4, 0))
   }
 
   return (

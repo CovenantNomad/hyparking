@@ -16,7 +16,7 @@ const Searchbar = ({ register }) => {
           name="plateNumber"
           type="number"
           placeholder="차량번호 4자리로 검색해주세요" 
-          className="block outline-none w-full py-4 pl-10 text-lg rounded-3xl focus:outline-none active:outline-none focus:appearance-none active:appearance-none"
+          className="block outline-none w-full py-4 pl-10 text-lg rounded-3xl focus:outline-none active:outline-none focus:appearance-none active:appearance-none placeholder:text-sm"
           autoFocus
           {...register("plateNumber", { 
             required: "검색할 차량번호를 입력해주세요",
