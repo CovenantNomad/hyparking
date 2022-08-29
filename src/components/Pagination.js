@@ -6,7 +6,6 @@ export default function Pagination({ page, setPage, totalPage, totalResults, lim
   const [ arrayNumber, setArrayNumber ] = useState(1)
   const currentArray = Array(Math.min(5, totalPage)).fill().map((_, i) => (((arrayNumber - 1) * 5) + 1 + i))
 
-
   return (
     <div className="bg-white py-3 flex items-center justify-between mt-6 border-t border-gray-200 sm:px-6">
       <div className="flex-1 flex justify-between sm:hidden">
@@ -35,8 +34,8 @@ export default function Pagination({ page, setPage, totalPage, totalResults, lim
         <div>
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             <button
-              onClick={() => setArrayNumber(arrayNumber - 1)}
-              disabled={arrayNumber === 1}
+              onClick={() => setPage(page - 1)}
+              disabled={page === 1}
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
               <span className="sr-only">Previous</span>
@@ -56,8 +55,8 @@ export default function Pagination({ page, setPage, totalPage, totalResults, lim
             )}
 
             <button
-              onClick={() => setArrayNumber(arrayNumber + 1)}
-              disabled={arrayNumber === maxArrayNumber}
+              onClick={() => setPage(page + 1)}
+              disabled={page === totalPage}
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
               <span className="sr-only">Next</span>

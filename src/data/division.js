@@ -47,4 +47,10 @@ export const divisions = [
     name: '시니어',
     short: 'SE',
   },
+  {
+    id: 8,
+    color: 'bg-[#FFEDC8]',
+    name: '새가족',
+    short: 'NF',
+  },
 ]

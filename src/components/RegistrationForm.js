@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationForm = ({ register, errors}) => {
+  const navigate = useNavigate()
   
   return (
     <div className='bg-zinc-200 pb-4'>
@@ -74,13 +76,14 @@ const RegistrationForm = ({ register, errors}) => {
                     <option value={"영커플"}>영커플</option>
                     <option value={"인터치"}>인터치</option>
                     <option value={"시니어"}>시니어</option>
+                    <option value={"새가족"}>새가족</option>
                     <option value={"사역자"}>사역자</option>
                   </select>
                   {errors.division && <p className='mt-1 text-red-600'>{errors.division.message}</p>}
                 </div>
 
                 <div className="col-span-2">
-                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">번호판 앞자리</label>
+                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">번호 앞자리</label>
                   <input
                     type="text"
                     name="plateFront"
@@ -124,14 +127,21 @@ const RegistrationForm = ({ register, errors}) => {
                 </div>
               </div>
 
-              <div className="pt-6 bg-gray-50 text-right">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    등록하기
-                  </button>
-                </div>
+              <div className="pt-6 text-right space-x-2 lg:space-x-4">
+                <button
+                  type="button"
+                  onClick={() => navigate('/')}
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  등록하기
+                </button>
+              </div>
             </div>
           </div>
         </div>

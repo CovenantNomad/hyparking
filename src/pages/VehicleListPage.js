@@ -55,7 +55,7 @@ const VehicleListPage = () => {
           data?.length !== 0 ? (
             data?.slice(offset, offset + limit).map(item => <VehicleItem key={item.owner} item={item} />)
           ) : (
-            <div className="text-center mt-8 sm:col-span-2 self-center justify-self-center">
+            <div className="text-center my-8 sm:col-span-2 md:col-span-3">
               <h3 className="text-2xl font-bold">등록된 차량이 없습니다</h3>
             </div>
           )

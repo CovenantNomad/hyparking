@@ -1,6 +1,8 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
+  const navigate = useNavigate()
   
   return (
     <div className='bg-zinc-200 pb-4'>
@@ -75,12 +77,13 @@ const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
                     <option value={"청장년"}>청장년</option>
                     <option value={"영커플"}>영커플</option>
                     <option value={"인터치"}>인터치</option>
+                    <option value={"새가족"}>새가족</option>
                   </select>
                   {errors.division && <p className='mt-1 text-red-600'>{errors.division.message}</p>}
                 </div>
 
                 <div className="col-span-2">
-                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">차량번호 앞자리</label>
+                  <label htmlFor="plateFront" className="block text-sm font-medium text-gray-700">번호 앞자리</label>
                   <input
                     type="text"
                     name="plateFront"
@@ -124,13 +127,21 @@ const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
                 </div>
               </div>
 
-              <div className="pt-6 bg-gray-50 text-right space-x-4">
+              <div className="pt-8 flex justify-between">
+                <button
+                  type="button"
+                  onClick={() => onDelete(fullPlateNumber)}
+                  className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                >
+                  삭제하기
+                </button>
+                <div className='space-x-2 lg:space-x-4'>
                   <button
                     type="button"
-                    onClick={() => onDelete(fullPlateNumber)}
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    onClick={() => navigate('/vehicle-list')}
+                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
                   >
-                    삭제하기
+                    취소
                   </button>
                   <button
                     type="submit"
@@ -138,7 +149,9 @@ const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
                   >
                     저장
                   </button>
+
                 </div>
+              </div>
             </div>
           </div>
         </div>
