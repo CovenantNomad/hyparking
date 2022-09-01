@@ -78,6 +78,7 @@ const UpdateForm = ({ register, errors, onDelete, fullPlateNumber}) => {
                     <option value={"영커플"}>영커플</option>
                     <option value={"인터치"}>인터치</option>
                     <option value={"새가족"}>새가족</option>
+                    <option value={"미등록"}>미등록</option>
                   </select>
                   {errors.division && <p className='mt-1 text-red-600'>{errors.division.message}</p>}
                 </div>

@@ -53,4 +53,10 @@ export const divisions = [
     name: '새가족',
     short: 'NF',
   },
+  {
+    id: 9,
+    color: 'bg-[#1E1E2A]',
+    name: '미등록',
+    short: 'UR',
+  },
 ]

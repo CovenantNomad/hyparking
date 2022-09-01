@@ -1,10 +1,14 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function Pagination({ page, setPage, totalPage, totalResults, limit }) {
   const maxArrayNumber = Math.ceil(totalPage / 5)
   const [ arrayNumber, setArrayNumber ] = useState(1)
-  const currentArray = Array(Math.min(5, totalPage)).fill().map((_, i) => (((arrayNumber - 1) * 5) + 1 + i))
+  const [ currentArray, setCurrentArray ] = useState(Array(Math.min(5 * arrayNumber, totalPage)).fill().map((_, i) => (((arrayNumber - 1) * 5) + 1 + i)))
+
+  useEffect(() => {
+    setCurrentArray(Array(Math.min(5 * arrayNumber, totalPage)).fill().map((_, i) => (((arrayNumber - 1) * 5) + 1 + i)))
+  }, [arrayNumber, totalPage])
 
   return (
     <div className="bg-white py-3 flex items-center justify-between mt-6 border-t border-gray-200 sm:px-6">
@@ -34,7 +38,14 @@ export default function Pagination({ page, setPage, totalPage, totalResults, lim
         <div>
           <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
             <button
-              onClick={() => setPage(page - 1)}
+              onClick={() => {
+                if (page === currentArray.at(0)) {
+                  setArrayNumber(arrayNumber - 1)
+                  setPage(page - 1)
+                } else {
+                  setPage(page - 1)
+                }
+              }}
               disabled={page === 1}
               className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >
@@ -55,7 +66,15 @@ export default function Pagination({ page, setPage, totalPage, totalResults, lim
             )}
 
             <button
-              onClick={() => setPage(page + 1)}
+              onClick={() => {
+                if (page === currentArray.at(-1)) {
+                  setArrayNumber(arrayNumber + 1)
+                  setPage(page + 1)
+                } else {
+                  console.log("여기클릭")
+                  setPage(page + 1)
+                }
+              }}
               disabled={page === totalPage}
               className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
             >

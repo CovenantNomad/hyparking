@@ -77,6 +77,7 @@ const RegistrationForm = ({ register, errors}) => {
                     <option value={"인터치"}>인터치</option>
                     <option value={"시니어"}>시니어</option>
                     <option value={"새가족"}>새가족</option>
+                    <option value={"미등록"}>미등록</option>
                     <option value={"사역자"}>사역자</option>
                   </select>
                   {errors.division && <p className='mt-1 text-red-600'>{errors.division.message}</p>}
